@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            <%= post.title %> | RecipeHub
+        </title>
+        <link rel="stylesheet" href="/styles/main.css">
+    </head>
+
+    <body>
+        <div class="page-wrapper">
+            <%- include("partials/header.ejs") %>
+                <main>
+                    <section class="recipe-container">
+                        <div class="recipe-card">
+                            <!-- IMAGE -->
+                            <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="post-image">
+                            <div class="recipe-card-content">
+                                <!-- TAGS -->
+                                <div class="recipe-tags">
+                                    <span>
+                                        <%= post.mealType %>
+                                    </span>
+                                    <span>
+                                        <%= post.course %>
+                                    </span>
+                                </div>
+                                <!-- TITLE -->
+                                <h1 class="recipe-title">
+                                    <%= post.title %>
+                                </h1>
+                                <!-- INGREDIENTS -->
+                                <div class="recipe-section">
+                                    <h3>
+                                        🥬 Ingredients
+                                    </h3>
+                                    <ul class="recipe-list">
+                                        <% post.ingredients .split("\n") .forEach(item=> { %>
+                                            <li>
+                                                <%= item %>
+                                            </li>
+                                        <% }) %>
+                                    </ul>
+                                </div>
+                                <!-- STEPS -->
+                                <div class="recipe-section">
+                                    <h3>
+                                        👨‍🍳 Cooking Steps
+                                    </h3>
+                                    <p class="recipe-steps">
+                                        <%= post.steps %>
+                                    </p>
+                                </div>
+                                <!-- ACTION BUTTONS -->
+                                <div class="card-actions">
+                                    <a href="/recipes" class="btn">
+                                        ⬅ Back
+                                    </a>
+                                    <a href="/edit/<%= post.id %>" class="edit">
+                                        ✏️ Edit
+                                    </a>
+                                    <form action="/delete/<%= post.id %>" method="POST">
+                                        <button type="submit" class="delete">
+                                            🗑 Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                <%- include("partials/footer.ejs") %>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Recipe | RecipeHub</title>
+        <link rel="stylesheet" href="/styles/main.css">
+    </head>
+
+    <body>
+        <div class="page-wrapper">
+            <%- include("partials/header.ejs") %>
+                <main>
+                    <section class="container">
+                        <div class="form-container">
+                            <h1>
+                                ✏️ Edit Recipe
+                            </h1>
+                            <form action="/edit/<%= post.id %>" method="POST">
+                                <!-- TITLE -->
+                                <label>
+                                    Recipe Title
+                                </label>
+                                <input type="text" name="title" value="<%= post.title %>" required>
+                                <!-- IMAGE URL -->
+                                <label>
+                                    Recipe Image URL
+                                </label>
+                                <input type="text" name="imageUrl" value="<%= post.imageUrl %>"
+                                    placeholder="Paste image URL" required>
+                                <!-- MEAL TYPE -->
+                                <label>
+                                    Meal Type
+                                </label>
+                                <select name="mealType" required>
+                                    <option value="Breakfast" <%=post.mealType==="Breakfast" ? "selected" : "" %>
+                                        >
+                                        Breakfast
+                                    </option>
+                                    <option value="Lunch" <%=post.mealType==="Lunch" ? "selected" : "" %>
+                                        >
+                                        Lunch
+                                    </option>
+                                    <option value="Dinner" <%=post.mealType==="Dinner" ? "selected" : "" %>
+                                        >
+                                        Dinner
+                                    </option>
+                                    <option value="Snack" <%=post.mealType==="Snack" ? "selected" : "" %>
+                                        >
+                                        Snack
+                                    </option>
+                                </select>
+                                <!-- COURSE -->
+                                <label>
+                                    Course
+                                </label>
+                                <select name="course" required>
+                                    <option value="Main Course" <%=post.course==="Main Course" ? "selected" : "" %>
+                                        >
+                                        Main Course
+                                    </option>
+                                    <option value="Dessert" <%=post.course==="Dessert" ? "selected" : "" %>
+                                        >
+                                        Dessert
+                                    </option>
+                                    <option value="Drink" <%=post.course==="Drink" ? "selected" : "" %>
+                                        >
+                                        Drink
+                                    </option>
+                                    <option value="Appetizer" <%=post.course==="Appetizer" ? "selected" : "" %>
+                                        >
+                                        Appetizer
+                                    </option>
+                                </select>
+                                <!-- INGREDIENTS -->
+                                <label>
+                                    Ingredients
+                                </label>
+                                <textarea name="ingredients" required><%= post.ingredients %></textarea>
+                                <!-- STEPS -->
+                                <label>
+                                    Cooking Steps
+                                </label>
+                                <textarea name="steps" required><%= post.steps %></textarea>
+                                <!-- BUTTONS -->
+                                <div class="card-actions">
+                                    <button type="submit" class="btn-primary">
+                                        💾 Save Changes
+                                    </button>
+                                    <a href="/post/<%= post.id %>" class="btn">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </main>
+                <%- include("partials/footer.ejs") %>
+        </div>
+    </body>
+</html>

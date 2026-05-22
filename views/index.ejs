@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            RecipeHub
+        </title>
+        <link rel="stylesheet" href="/styles/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+
+    <body>
+        <div class="page-wrapper">
+            <%- include("partials/header.ejs") %>
+                <main>
+                    <!-- HERO -->
+                    <section class="hero">
+                        <div class="hero-content">
+                            <h1>
+                                Discover Delicious Homemade Recipes 🍳
+                            </h1>
+                            <p>
+                                Create, explore, and share your
+                                favorite dishes with RecipeHub.
+                            </p>
+                            <!-- SEARCH BOX -->
+                            <form action="/recipes" method="GET" class="hero-search">
+                                <input type="text" name="search" placeholder="Search your favorite recipe...">
+                                <button type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>   
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- FEATURED RECIPES -->
+                    <section class="featured-section">
+                        <h2>
+                            Latest Recipes
+                        </h2>
+                        <% if(posts.length===0) { %>
+                            <div class="empty-state">
+                                <h2>
+                                    🍳 No Recipes Yet
+                                </h2>
+                                <p>
+                                    Start creating delicious recipes
+                                    and share them with everyone.
+                                </p>
+                                <a href="/recipes" class="btn-primary">
+                                    Add Recipe
+                                </a>
+                            </div>
+                            <% } else { %>
+                                <div class="recipe-grid">
+                                    <% posts.slice(-3).reverse().forEach(function(post) { %>
+                                        <div class="recipe-card">
+                                            <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="recipe-image">
+                                            <div class="recipe-card-content">
+                                                <div class="recipe-tags">
+                                                    <span>
+                                                        <%= post.mealType %>
+                                                    </span>
+                                                    <span>
+                                                        <%= post.course %>
+                                                    </span>
+
+                                                </div>
+                                                <h2>
+                                                    <%= post.title %>
+                                                </h2>
+                                                <p>
+                                                    A delicious homemade recipe waiting to be explored.
+                                                </p>
+                                                <div class="card-actions">
+                                                    <a href="/post/<%= post.id %>" class="btn">
+                                                        View Recipe
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <% } %>
+                    </section>
+
+                    <!-- FEATURES -->
+                    <section class="features-section">
+                        <div class="feature-card">
+                            <h3>
+                                🍽 Easy Recipes
+                            </h3>
+                            <p>
+                                Simple and delicious meals anyone can cook.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>
+                                ⚡ Fast Access
+                            </h3>
+                            <p>
+                                Quickly browse and manage your recipes.
+                            </p>
+
+                        </div>
+                        <div class="feature-card">
+                            <h3>
+                                📝 Create Recipes
+                            </h3>
+                            <p>
+                                Add your own favorite homemade dishes.
+                            </p>
+                        </div>
+                    </section>
+                </main>
+                <%- include("partials/footer.ejs") %>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recipes</title>
+        <link rel="stylesheet" href="/styles/main.css">
+    </head>
+    <body>
+        <%- include("partials/header.ejs") %>
+            <!-- PAGE HEADER -->
+        <div class="page-wrapper">
+            <section class="recipes-hero">
+                <h1>
+                    Explore Recipes 🍽
+                </h1>
+                <p>
+                    Browse delicious meals and discover your next favorite dish.
+                </p>
+                <button type="button" class="btn-primary" onclick="openModal()">
+                    + Add Recipe
+                </button>
+                <!-- SEARCH -->
+                <form action="/recipes" method="GET" class="recipes-search">
+                    <input type="text" name="search" value="<%= search || '' %>" placeholder="Search recipes...">
+                    <button type="submit">
+                        🔍
+                    </button>
+                </form>
+            </section>
+            <!-- FILTERS -->
+            <section class="filters">         
+                <a href="/recipes" class="filter-btn">All</a>           
+                <a href="/recipes?filter=Breakfast" class="filter-btn">
+                    Breakfast
+                </a>            
+                <a href="/recipes?filter=Lunch" class="filter-btn">
+                    Lunch
+                </a>
+                <a href="/recipes?filter=Dinner" class="filter-btn">
+                    Dinner
+                </a>            
+                <a href="/recipes?filter=Dessert" class="filter-btn">
+                    Dessert
+                </a>
+            </section>
+
+            <!-- RECIPE GRID -->
+            <section class="recipe-grid">
+                <% posts.forEach(post=> { %>
+                    <div class="recipe-card">
+                        <img src="<%= post.imageUrl %>" alt="<%= post.title %>" class="recipe-image">  
+                        <div class="recipe-card-content">
+                            <div class="recipe-tags">
+                                <span>
+                                    <%= post.mealType %>
+                                </span>
+                                <span>
+                                    <%= post.course %>
+                                </span>
+                            </div>
+                            <h2>
+                                <%= post.title %>
+                            </h2>
+                            <p>
+                                A delicious homemade recipe.
+                            </p>
+                            <div class="card-actions">
+                                <a href="/post/<%= post.id %>" class="btn">
+                                    View
+                                </a>           
+                                <a href="/edit/<%= post.id %>" class="edit">
+                                    Edit
+                                </a>
+                                <form action="/delete/<%= post.id %>" method="POST">
+                                    <button type="submit" class="delete">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </section>
+            <!-- MODAL -->
+            <div class="modal" id="recipeModal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">
+                        &times;
+                    </span>
+                    <h2>Add Recipe</h2>
+                    <form action="/submit" method="POST">
+                        <input type="text" name="title" placeholder="Recipe Title" required>
+                        <select name="mealType" required>
+                            <option value="">Meal Type</option>
+
+                            <option>Breakfast</option>
+                            <option>Lunch</option>
+                            <option>Dinner</option>
+                            <option>Dessert</option>
+                        </select>
+                        <select name="course" required>
+                            <option value="">Course</option>
+                            <option>Main Course</option>
+                            <option>Appetizer</option>
+                            <option>Snack</option>
+                            <option>Drink</option>
+                        </select>
+                        <input type="text" name="imageUrl" placeholder="Image URL" />
+                        <textarea name="ingredients" placeholder="Ingredients" required></textarea>
+                        <textarea name="steps" placeholder="Cooking Steps" required></textarea>
+                        <button class="btn-primary" onclick="openModal()">
+                            Add Recipe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- SCRIPT -->
+            <script>
+                function openModal() {
+                    document
+                        .getElementById("recipeModal")
+                        .classList.add("active");
+                }
+                function closeModal() {
+                    document
+                        .getElementById("recipeModal")
+                        .classList.remove("active");
+                }
+
+            </script>
+        </div>
+        <%- include("partials/footer.ejs") %>
+    </body>
+</html>
